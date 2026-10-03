@@ -2,6 +2,19 @@
 ### Smart Wilderness Safety, Forest Survey & Emergency Response System
 **Smart India Hackathon (SIH) | Problem Statement ID: SIH25002**
 
+---
+
+## 🌐 Live Cloud Deployments
+
+| Component | Status | Production Link | Description |
+| :--- | :---: | :--- | :--- |
+| **Frontend Web Portal** | [![Status](https://img.shields.io/badge/Render-Active-22c55e.svg?style=flat&logo=render)](https://vanrakshak-frontend.onrender.com) | [**https://vanrakshak-frontend.onrender.com**](https://vanrakshak-frontend.onrender.com) | Production React + Vite + Tailwind PWA client |
+| **Backend REST & WS API** | [![Status](https://img.shields.io/badge/Render-Active-22c55e.svg?style=flat&logo=render)](https://vanrakshak-backend-exqf.onrender.com) | [**https://vanrakshak-backend-exqf.onrender.com**](https://vanrakshak-backend-exqf.onrender.com) | Production FastAPI engine on Render Cloud |
+| **Interactive API Docs** | [![Swagger](https://img.shields.io/badge/Swagger-OpenAPI%203.0-009688.svg?style=flat&logo=swagger)](https://vanrakshak-backend-exqf.onrender.com/docs) | [**https://vanrakshak-backend-exqf.onrender.com/docs**](https://vanrakshak-backend-exqf.onrender.com/docs) | Interactive Swagger UI API documentation |
+| **GitHub Repository** | [![GitHub](https://img.shields.io/badge/GitHub-teamlaura07%2Fvanrakshak-181717.svg?style=flat&logo=github)](https://github.com/teamlaura07/vanrakshak) | [**https://github.com/teamlaura07/vanrakshak**](https://github.com/teamlaura07/vanrakshak) | Source Code Repository |
+
+---
+
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-18.x-61DAFB.svg?style=flat&logo=React&logoColor=black)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-5.x-646CFF.svg?style=flat&logo=Vite&logoColor=white)](https://vitejs.dev/)
@@ -12,17 +25,37 @@
 
 ---
 
-## 📌 Overview
+## 📌 Executive Summary & Problem Context
 
-**VanRakshak** is an expedition-grade wilderness safety and emergency management platform designed for high-risk, low-connectivity terrains (such as the Himalayas and North-East India). 
+In high-altitude alpine ridges, dense pine canopies, and remote forest reserves (e.g. Himalayas and North-East India), millions of tourists, trekkers, and field researchers encounter life-threatening emergencies annually (sudden landslides, severe hypothermia, acute mountain sickness, flash floods, wildlife encounters, or trail disorientation).
 
-When connectivity is lost, standard safety apps fail. **VanRakshak** overcomes this with:
-1. **Kinematic Dead-Reckoning Extrapolation**: Predicts tourist location along trail headings during zero-signal periods.
-2. **Expanding Uncertainty Cone**: Dynamically calculates expanding search boundaries for Search and Rescue (SAR) units.
-3. **Sensor-Fused Fall Detection**: In-browser accelerometer thresholding ($>0.85$ confidence) with automatic offline SOS queueing.
-4. **Geofenced Hazard Intersections**: Real-time cross-referencing of tourist tracks against landslide, flood, and wildlife danger zones.
-5. **Cryptographically Chained Audit Trails**: Immutable SHA-256 state tracking for every incident mutation.
+### The Three Critical Challenges in Wilderness Safety
+1. **Network Fragility & Blackouts**: Standard apps assume persistent 4G/5G cellular coverage. In deep gorges and mountain passes, coverage drops to zero. Standard apps crash or cease telemetry.
+2. **Static Search Coordinates**: When an SOS is sent at the last point of coverage, SAR teams look *only* at that static location. In reality, a distressed hiker continues walking, quickly moving kilometers away.
+3. **Disjointed Operational Silos**: Tourists, field rescue units, and government command centres use disconnected tools, resulting in lethal delays.
+
+### The VanRakshak Solution
+**VanRakshak (वनरक्षक)** is an expedition-grade wilderness safety and emergency management platform designed for high-risk, zero-connectivity terrains. It provides uninterrupted life-safety telemetry through:
+1. **Kinematic Dead-Reckoning Extrapolation**: Continuously estimates hiker coordinates using pre-loss speed and heading when signal is lost.
+2. **Expanding Uncertainty Cone**: Dynamically calculates expanding probability search boundaries for Search and Rescue (SAR) units.
+3. **Sensor-Fused Fall Detection**: In-browser accelerometer thresholding ($>0.85$ confidence) with automated 30-second countdown and offline SOS queueing.
+4. **Geofenced Hazard Intersections**: Real-time cross-referencing of tourist paths against active landslide, flash flood, and wildlife danger zones.
+5. **Cryptographically Chained Audit Trails**: Immutable SHA-256 state tracking for every incident mutation for legal accountability.
 6. **Tripartite Operational Topology**: Synchronous coordination between **Tourists**, **Field Rangers**, and the **Command & Control Room**.
+
+---
+
+## 🔑 Pre-Seeded Test Credentials
+
+To test the live portal immediately at [https://vanrakshak-frontend.onrender.com](https://vanrakshak-frontend.onrender.com):
+
+| Role | Email | Password | Primary Dashboards |
+| :--- | :--- | :--- | :--- |
+| **Control Room Admin** | `admin@vanrakshak.org` | `admin123` | `/control-room`, `/map`, `/home` |
+| **Field Ranger** | `ranger@vanrakshak.org` | `ranger123` | `/ranger`, `/map`, `/home` |
+| **Tourist** | `tourist@vanrakshak.org` | `tourist123` | `/home`, `/map`, `/sos` |
+
+*Or register a new account on the portal with instant login.*
 
 ---
 
@@ -30,53 +63,64 @@ When connectivity is lost, standard safety apps fail. **VanRakshak** overcomes t
 
 ```mermaid
 graph TD
-    subgraph Clients ["Frontend Portals (React + Vite + Tailwind)"]
+    subgraph Clients ["Client Layer (React 18 + Vite + Tailwind PWA)"]
         T[Tourist Mobile Portal<br/>/home, /map, /sos]
         R[Ranger Field Terminal<br/>/ranger]
         C[Control Room Console<br/>/control-room]
         S[Scenario Test Runner<br/>/scenario]
     end
 
-    subgraph API ["FastAPI Backend Engine (Port 8000)"]
-        Auth[Auth & RBAC Router<br/>JWT + Passlib]
-        Identity[Digital Tourist ID DTID<br/>Tokenized Aadhaar]
-        Incidents[Incident Management<br/>SOS & Fall Intake]
-        Geo[Danger Zone Intersect<br/>Spatial Backend Engine]
-        Rangers[Ranger Fleet Service<br/>Haversine Nearest Search]
-        WS[WebSocket Manager<br/>Real-Time Event Bus]
-        Hash[SHA-256 Hash Chain<br/>Audit & Integrity]
+    subgraph Cloud ["Cloud Deployment (Render)"]
+        subgraph API ["FastAPI ASGI Backend Engine"]
+            Auth[Auth & RBAC Router<br/>JWT + Passlib]
+            Identity[Digital Tourist ID DTID<br/>Tokenized Aadhaar]
+            Incidents[Incident Management<br/>SOS & Fall Intake]
+            Geo[Danger Zone Intersect<br/>Spatial Backend Engine]
+            Rangers[Ranger Fleet Service<br/>Haversine Nearest Search]
+            WS[WebSocket Manager<br/>Real-Time Multi-Channel Bus]
+            Hash[SHA-256 Hash Chain<br/>Audit & Integrity]
+        end
+
+        subgraph Data ["Persistence & Geodata"]
+            DB[(SQLite / PostgreSQL DB)]
+            GeoJSON[Danger Zones GeoJSON]
+        end
     end
 
-    subgraph Data ["Data & Storage Layer"]
-        DB[(SQLAlchemy SQLite DB)]
-        GeoJSON[Danger Zones GeoJSON]
-        IndexedDB[Client IndexedDB Queue<br/>Offline Storage]
+    subgraph Offline ["Edge Offline Subsystem"]
+        IndexedDB[Client IndexedDB Queue<br/>Offline SOS Packets]
+        Sensors[Web Accelerometer / IMU<br/>Fall Spike Detection]
+        Kinematics[Dead-Reckoning Engine<br/>Azimuth & Speed Extrapolation]
     end
 
-    T <-->|HTTP / WS| API
-    R <-->|HTTP / WS| API
-    C <-->|HTTP / WS| API
+    T <-->|HTTPS / WSS| API
+    R <-->|HTTPS / WSS| API
+    C <-->|HTTPS / WSS| API
     S <-->|API Tests| API
 
-    T -.->|Offline Queue| IndexedDB
+    T <--> Sensors
+    T <--> Kinematics
+    T -.->|Network Blackout| IndexedDB
+    IndexedDB -.->|Auto Sync on Reconnect| API
+
     API <--> DB
     API <--> GeoJSON
 ```
 
 ---
 
-## 🚀 Key Features by User Role
+## 🚀 Key Modules & Features by User Role
 
 ### 🥾 1. Tourist Safety Portal (`/home`, `/map`, `/sos`)
 - **Surveyed Trails Catalog**: Real-time trail health, distance, elevation gain, permit requirements (ILP/PAP), and hazard bypasses.
-- **Live Safety Map**: Visualizes safe paths, ranger posts, shelter locations, and active danger zones.
-- **Instant SOS & Fall Trigger**: Instant distress signal transmission with automated 30-second accelerometer fall countdown.
+- **Interactive Live Safety Map**: Visualizes safe paths, ranger posts, shelter locations, cell towers, and active hazard zones.
+- **Instant SOS & Fall Trigger**: Instant distress signal transmission with automated 30-second accelerometer fall countdown and cancel option.
 - **Digital Tourist ID (DTID)**: Tamper-proof QR token for fast park check-in and emergency medical profiling.
 - **Offline Kinematics**: Tracks pre-loss walking speed and heading to maintain navigation continuity offline.
 
 ### 🛡️ 2. Forest Ranger Terminal (`/ranger`)
 - **Live Dispatch Alerting**: Instant audio-visual alerts upon incident assignment with dynamic target coordinates.
-- **Field Triage & Status**: Update incident status (`EN_ROUTE`, `ON_SCENE`, `RESOLVED`) with field triage notes.
+- **Field Triage & Status Machine**: Update incident status (`EN_ROUTE`, `ON_SCENE`, `RESOLVED`) with field triage notes.
 - **Offline Route Caching**: Retains topographical maps and emergency shelters during zero-connectivity field patrols.
 
 ### 📡 3. Command & Control Room Console (`/control-room`)
@@ -87,14 +131,14 @@ graph TD
 
 ### 🧪 4. Scenario Runner & Integration Test Suite (`/scenario`)
 Automated runner testing 8 real-world mission scenarios:
-- `Scenario 01`: Direct Intake & SOS Dispatch
-- `Scenario 02`: Signal Drop & Reconnection Recovery
-- `Scenario 03`: Offline Sensor Fall Detection & Synced Queue
-- `Scenario 04`: Multi-packet FIFO Offline Queue Drain
-- `Scenario 05`: Control Room Unit Dispatch & Ranger Assignment
-- `Scenario 06`: Aadhaar Hashing, DTID Generation & Hash-Chaining
-- `Scenario 07`: Danger Zone LineString Route Intersection
-- `Scenario 08`: Kinematic Dead-Reckoning Coordinate & Uncertainty Expansion
+- **Scenario 01**: Direct Intake & SOS Dispatch
+- **Scenario 02**: Signal Drop & Reconnection Recovery
+- **Scenario 03**: Offline Sensor Fall Detection & Synced Queue
+- **Scenario 04**: Multi-packet FIFO Offline Queue Drain
+- **Scenario 05**: Control Room Unit Dispatch & Ranger Assignment
+- **Scenario 06**: Aadhaar Hashing, DTID Generation & Hash-Chaining
+- **Scenario 07**: Danger Zone LineString Route Intersection
+- **Scenario 08**: Kinematic Dead-Reckoning Coordinate & Uncertainty Expansion
 
 ---
 
@@ -112,7 +156,7 @@ $$d_{\text{offline}} = v_{\text{walk}} \times \Delta t_{\text{offline}}$$
 $$\phi_{\text{estimated}} = \phi_0 + \frac{d_{\text{offline}} \cdot \cos(\theta)}{111,320}$$
 $$\lambda_{\text{estimated}} = \lambda_0 + \frac{d_{\text{offline}} \cdot \sin(\theta)}{111,320 \cdot \cos(\phi_0)}$$
 
-### 4. Dynamic Search Radius Expansion
+### 4. Dynamic Search Radius Expansion (Uncertainty Cone)
 $$R_{\text{search}} = R_{\text{base}} + \left(v_{\text{walk}} \times \Delta t_{\text{offline}} \times 1.15\right)$$
 
 ### 5. Cryptographic State Hash Chain
@@ -120,20 +164,35 @@ $$H_n = \text{SHA-256}\left( H_{n-1} \,\|\, \text{Timestamp} \,\|\, \text{Payloa
 
 ---
 
-## 🛠️ Quick Start & Installation
+## 🛠️ Local Setup & Installation
 
 ### Prerequisites
-- **Node.js**: v18+ (Tested on v24)
-- **Python**: v3.10+ (Tested on v3.12 & v3.13)
+- **Node.js**: v18+ 
+- **Python**: v3.10+ (Tested on v3.12 / v3.13)
 - **npm**: v9+
+- **Git**
 
 ---
 
-### Step 1: Start Backend Server
+### Step 1: Clone Repository
+```bash
+git clone https://github.com/teamlaura07/vanrakshak.git
+cd vanrakshak
+```
 
+---
+
+### Step 2: Start Backend Server
 ```bash
 # Navigate to backend directory
 cd backend
+
+# Create virtual environment (optional but recommended)
+python -m venv venv
+# Windows:
+venv\Scripts\activate
+# Linux/macOS:
+source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
@@ -142,12 +201,11 @@ pip install -r requirements.txt
 python -m uvicorn main:app --host 127.0.0.1 --port 8000 --reload
 ```
 *Backend runs on: `http://127.0.0.1:8000`*  
-*Interactive Swagger API docs: `http://127.0.0.1:8000/docs`*
+*Swagger API Docs: `http://127.0.0.1:8000/docs`*
 
 ---
 
-### Step 2: Start Frontend Application
-
+### Step 3: Start Frontend Application
 ```bash
 # Open a new terminal and navigate to frontend directory
 cd frontend
@@ -162,22 +220,35 @@ npm run dev
 
 ---
 
-## 🔑 Pre-Seeded Test Credentials
+## 📡 REST API Reference
 
-| Role | Email | Password | Allowed Dashboards |
-| :--- | :--- | :--- | :--- |
-| **Control Room Admin** | `admin@vanrakshak.org` | `admin123` | `/control-room`, `/map`, `/home` |
-| **Field Ranger** | `ranger@vanrakshak.org` | `ranger123` | `/ranger`, `/map`, `/home` |
-| **Tourist** | `tourist@vanrakshak.org` | `tourist123` | `/home`, `/map`, `/sos` |
+| Method | Endpoint | Description | Auth Required |
+| :--- | :--- | :--- | :---: |
+| `POST` | `/auth/register` | Register new user account | No |
+| `POST` | `/auth/login` | Authenticate and obtain JWT token pair | No |
+| `POST` | `/auth/refresh` | Refresh access token | Yes |
+| `POST` | `/identity/generate-dtid` | Generate Digital Tourist ID & QR pass | Yes |
+| `POST` | `/incidents/distress` | Submit emergency SOS / Fall distress event | Yes |
+| `GET` | `/incidents/active` | Retrieve active incidents for control room | Yes |
+| `PATCH` | `/incidents/{id}/status` | Update incident triage status | Yes (Ranger/Admin) |
+| `GET` | `/danger-zones` | Retrieve all active geofenced danger polygons | Yes |
+| `POST` | `/danger-zones/check-route` | LineString route intersection hazard check | Yes |
+| `GET` | `/rangers/nearest` | Haversine proximity search for closest ranger | Yes |
+| `GET` | `/weather/forecast` | Mountain elevation weather forecast feed | No |
+| `GET` | `/advisories/active` | Retrieve regional safety advisories | No |
+| `WS` | `/ws/incidents` | Real-time multi-channel WebSocket bus | Optional |
 
 ---
 
-## 📁 Repository Structure
+## 📁 Repository Directory Structure
 
 ```
+├── README.md                       # Comprehensive Project Report & Cloud Deployment Guide
+├── render.yaml                     # Infrastructure as Code (Render deployment manifest)
+├── index.html                      # Local portal launcher & navigation hub
 ├── backend/
 │   ├── main.py                     # FastAPI application entry & startup seed
-│   ├── database.py                 # SQLite engine & session management
+│   ├── database.py                 # SQLite/PostgreSQL engine & session management
 │   ├── config.py                   # App configuration & JWT settings
 │   ├── requirements.txt            # Python dependencies
 │   ├── middleware/
@@ -207,12 +278,12 @@ npm run dev
 ├── frontend/
 │   ├── package.json                # Frontend dependencies & scripts
 │   ├── vite.config.js              # Vite configuration & dev proxy
-│   ├── tailwind.config.js          # Expedition & Tiranga design tokens
+│   ├── tailwind.config.js          # Expedition design tokens & color schemes
 │   └── src/
 │       ├── App.jsx                 # Route definitions & RBAC guards
-│       ├── index.css               # Global typography, colors & hairlines
+│       ├── index.css               # Global typography, colors & styles
 │       ├── lib/
-│       │   ├── api.js              # Axios instance with auth interceptors
+│       │   ├── api.js              # Axios instance with auth interceptors & base URL
 │       │   ├── deadReckoning.js    # Kinematic speed & uncertainty engine
 │       │   ├── trailsData.js       # Verified surveyed trail geodatabase
 │       │   └── wsClient.js         # WebSocket auto-reconnect client
@@ -224,9 +295,9 @@ npm run dev
 │           ├── control_room/       # ControlRoom
 │           └── scenario/           # ScenarioRunner (8 integration test cases)
 │
-├── field_survey_protection_interface/
-│   └── DESIGN.md                   # Full UI/UX Design System Specification
-└── PROJECT_DOCUMENTATION.md        # Exhaustive Technical & Engineering Report
+└── stitch_unified_web_portal/
+    ├── PROJECT_DOCUMENTATION.md    # Exhaustive Technical & Engineering Report
+    └── README.md                   # Mirrored documentation
 ```
 
 ---
