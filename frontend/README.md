@@ -1,16 +1,26 @@
-# React + Vite
+# 🌲 VanRakshak Frontend PWA
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Expedition-grade wilderness safety, tracking, and incident management portal built with **React 18**, **Vite**, and **Tailwind CSS**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌐 Live Deployments
 
-## React Compiler
+- **Live Production App**: [https://vanrakshak-frontend.onrender.com](https://vanrakshak-frontend.onrender.com)
+- **Production API & WebSocket**: [https://vanrakshak-backend-exqf.onrender.com](https://vanrakshak-backend-exqf.onrender.com)
+- **Interactive Swagger Docs**: [https://vanrakshak-backend-exqf.onrender.com/docs](https://vanrakshak-backend-exqf.onrender.com/docs)
+- **GitHub Repository**: [https://github.com/teamlaura07/vanrakshak](https://github.com/teamlaura07/vanrakshak)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the Oxlint configuration
+## 🛠️ Local Development
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+# Install dependencies
+npm install
+
+# Start Vite dev server
+npm run dev
+```
+
+*Runs locally on [http://localhost:5173](http://localhost:5173)*
